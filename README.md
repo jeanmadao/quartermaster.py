@@ -7,6 +7,7 @@ The Becode Cybersecurity private discord bot!
 ## Dependencies
 - [discord.py[voice]](https://discordpy.readthedocs.io/)
 - [python-dotenv](https://saurabh-kumar.com/python-dotenv/)
+- [requests](https://requests.readthedocs.io/)
 
 ## Roadmap
 - [ ] Regularly send articles from RSS feed

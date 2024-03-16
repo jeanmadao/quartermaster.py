@@ -8,8 +8,6 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 
-
-
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
@@ -39,7 +37,7 @@ class QuarterMaster(commands.Bot):
                 self.maintenance_channel = await self.fetch_channel(int(MAINTENANCE_CHANNEL))
                 self.announcement_channel = await self.fetch_channel(int(ANNOUNCEMENT_CHANNEL))
         except Exception:
-            log.exception(f'Failed to load maintenance channel.')
+            log.exception(f'Failed to load channels.')
 
         for extension in extensions:
             try:
