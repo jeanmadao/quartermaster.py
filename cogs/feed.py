@@ -1,6 +1,7 @@
 from discord.ext import commands, tasks
 import feedparser
 import time
+from datetime import datetime
 from cogs.utils.time import calculate_delta_hours
 
 SOURCES = (
@@ -28,11 +29,12 @@ class Feed(commands.Cog):
 
     @tasks.loop(minutes=SEND_ARTICLE_COOLDOWN)
     async def send_article(self):
-        article = self.rss_queue.pop(0)
-        if self.bot.maintenance:
-            await self.bot.maintenance_channel.send(article)
-        else:
-            await self.bot.feed_channel.send(article)
+        if 8 <= datetime.today().hour <= 20:
+            article = self.rss_queue.pop(0)
+            if self.bot.maintenance:
+                await self.bot.maintenance_channel.send(article)
+            else:
+                await self.bot.feed_channel.send(article)
 
 
 async def setup(bot):
