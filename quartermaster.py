@@ -11,6 +11,7 @@ TOKEN = os.getenv("TOKEN")
 MAINTENANCE_CHANNEL = os.getenv("MAINTENANCE_CHANNEL")
 ANNOUNCEMENT_CHANNEL = os.getenv("ANNOUNCEMENT_CHANNEL")
 FEED_CHANNEL = os.getenv("FEED_CHANNEL")
+MAINTENANCE = os.getenv("MAINTENANCE")
 
 extensions = (
         "cogs.time",
@@ -32,10 +33,11 @@ class QuarterMaster(commands.Bot):
 
     async def setup_hook(self):
         try:
-            if MAINTENANCE_CHANNEL and ANNOUNCEMENT_CHANNEL and FEED_CHANNEL:
+            if MAINTENANCE_CHANNEL and ANNOUNCEMENT_CHANNEL and FEED_CHANNEL and MAINTENANCE:
                 self.maintenance_channel = await self.fetch_channel(int(MAINTENANCE_CHANNEL))
                 self.announcement_channel = await self.fetch_channel(int(ANNOUNCEMENT_CHANNEL))
                 self.feed_channel = await self.fetch_channel(int(FEED_CHANNEL))
+                self.maintenance = eval(MAINTENANCE)
         except Exception:
             log.exception(f'Failed to load channels.')
 

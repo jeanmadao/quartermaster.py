@@ -23,12 +23,18 @@ class Attendance(commands.Cog):
     @tasks.loop(time=checkin_times)
     async def checkin_announcement(self):
         if isweekday(datetime.date.today()):
-            await self.bot.maintenance_channel.send("Don't forget to check in!")
+            if self.bot.maintenance:
+                await self.bot.maintenance_channel.send("Don't forget to check in!")
+            else:
+                await self.bot.announcement_channel.send("Don't forget to check in!")
 
     @tasks.loop(time=checkout_times)
     async def checkout_announcement(self):
         if isweekday(datetime.date.today()):
-            await self.bot.maintenance_channel.send("Don't forget to check out!")
+            if self.bot.maintenance:
+                await self.bot.maintenance_channel.send("Don't forget to check out!")
+            else:
+                await self.bot.announcement_channel.send("Don't forget to check out!")
 
 async def setup(bot):
     await bot.add_cog(Attendance(bot))

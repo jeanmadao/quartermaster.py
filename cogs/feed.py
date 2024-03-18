@@ -29,7 +29,10 @@ class Feed(commands.Cog):
     @tasks.loop(minutes=SEND_ARTICLE_COOLDOWN)
     async def send_article(self):
         article = self.rss_queue.pop(0)
-        await self.bot.maintenance_channel.send(article)
+        if self.bot.maintenance:
+            await self.bot.maintenance_channel.send(article)
+        else:
+            await self.bot.feed_channel.send(article)
 
 
 async def setup(bot):
